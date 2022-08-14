@@ -1,0 +1,41 @@
+GET http://localhost:3001/users
+###
+
+POST http://localhost:3001/users/add
+Content-Type: application/json
+
+{
+    "username": "john"
+}
+###
+
+GET http://localhost:3001/exercises
+###
+
+POST http://localhost:3001/exercises/add
+Content-Type: application/json
+
+{
+    "username": "jim",
+    "description": "run",
+    "duration": 9,
+    "date": "2021-04-23"
+}
+
+###
+GET http://localhost:3001/exercises/62f8bb7fa5f0730dfae44f50
+###
+
+POST http://localhost:3001/exercises/update/62f8bb7fa5f0730dfae44f50
+Content-Type: application/json
+
+{
+    "username": "john",
+    "description": "walk",
+    "duration": 9,
+    "date": "2021-04-24"
+}
+
+###
+DELETE http://localhost:3001/exercises/62f8bb7fa5f0730dfae44f50
+
