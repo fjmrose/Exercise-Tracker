@@ -1,16 +1,12 @@
 import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Add from './components/Add'
-import Exercises from './components/Exercises'
+import Stats from './components/Stats'
 import Home from './components/Home'
+import Users from './components/Users'
 
 const App = () => {
-    //navbar
-    //users
-    //exercises
-
-    console.log('front end is running')
-
+  
     return (
         <Router>
         <Navbar />
@@ -18,9 +14,11 @@ const App = () => {
 
                 <Route path="/" element={<Home />} />
 
-                <Route path="/exercises" element={<Exercises />} />
+                <Route path="/users" element={<Users />} />
 
                 <Route path="/add" element={<Add />} />
+
+                <Route path="/stats" element={<Stats />} />
 
             </Routes>
         </Router>
