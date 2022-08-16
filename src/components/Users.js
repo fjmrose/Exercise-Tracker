@@ -3,8 +3,8 @@ import axios from 'axios'
 
 const Users = () => {
 
-    const [allUsers, setAllUsers] = useState([])
-    const [user, setUser] = useState({
+    const [ allUsers, setAllUsers ] = useState([])
+    const [ user, setUser ] = useState({
         username: ''
     })
 
@@ -27,15 +27,41 @@ const Users = () => {
         setUser(newUser)
     }
 
-    const handleClick = event => {
+    const registerUser = event => {
         event.preventDefault()
         const newUsername = {
             username: user.username
         }
         axios.post("http://localhost:3001/users/add", newUsername)
+        setAllUsers([
+            ...allUsers,
+            newUsername
+        ])
         setUser({
             username: ''
         })
+    }
+
+    const deleteUser = user => {
+        const id = user._id
+        axios.delete(`http://localhost:3001/users/${id}`)
+            .then(() => {
+                setAllUsers(allUsers.filter(user => user._id !== id))
+            })
+    }
+
+    const updateUser = user => {
+        const id = user._id
+        const newName = prompt('Enter new username: ')
+        const newUser = {
+            ...user,
+            username: newName
+        }
+        axios.put(`http://localhost:3001/users/update/${id}`, newUser)
+            .then(() => {
+                setAllUsers(allUsers.map(user => user._id !== id
+                    ? user : newUser))
+            })
     }
 
     return (
@@ -43,19 +69,25 @@ const Users = () => {
             <div>
                 <h1>Users</h1>
                 <ul>
-                    {allUsers.map((user, key) => {
-                        return <li key={key}>{user.username}</li>
+                    {allUsers.map((user, i) => {
+                        return (
+                            <div key={i}>
+                                <li>{user.username}</li>
+                                <button onClick={(e) => deleteUser(user)}>Delete</button>
+                                <button onClick={(e) => updateUser(user)}>Update</button>
+                            </div>
+                        )
                     })}
                 </ul>
             </div>
             <UserForm handleChange={handleChange}
-                handleClick={handleClick}
+                registerUser={registerUser}
                 username={user.username} />
         </div>
     )
 }
 
-const UserForm = ({ handleChange, handleClick, username }) => {
+const UserForm = ({ handleChange, registerUser, username }) => {
     return (
         <div>
             <form>
@@ -66,7 +98,7 @@ const UserForm = ({ handleChange, handleClick, username }) => {
                         value={username}
                         className="form-control"></input>
                 </div>
-                <button onClick={handleClick}
+                <button onClick={registerUser}
                     type="submit"
                     className="btn btn-primary">Submit</button>
             </form>
