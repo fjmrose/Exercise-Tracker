@@ -3,15 +3,21 @@ import axios from 'axios'
 
 const Users = () => {
 
-    useEffect(() => {
-        axios.get("http://localhost:3001/users/")
-          .then(res => res.data)
-    })
-
-    const [ allUsers, setAllUsers ] = useState([])
-    const [ user, setUser ] = useState({
+    const [allUsers, setAllUsers] = useState([])
+    const [user, setUser] = useState({
         username: ''
     })
+
+    useEffect(() => {
+        axios.get("http://localhost:3001/users/")
+            .then(response => {
+                setAllUsers(response.data)
+                console.log('allUsers = ', response.data)
+            })
+            .catch(() => {
+                console.log('Error retrieving data')
+            })
+    }, [])
 
     const handleChange = event => {
         const userInput = event.target.value
@@ -36,14 +42,33 @@ const Users = () => {
         <div>
             <div>
                 <h1>Users</h1>
-                <p>////</p>
+                <ul>
+                    {allUsers.map((user, key) => {
+                        return <li key={key}>{user.username}</li>
+                    })}
+                </ul>
             </div>
+            <UserForm handleChange={handleChange}
+                handleClick={handleClick}
+                username={user.username} />
+        </div>
+    )
+}
+
+const UserForm = ({ handleChange, handleClick, username }) => {
+    return (
+        <div>
             <form>
                 <div className="form-group">
                     <h5>Username:</h5>
-                    <input onChange={handleChange} name="username" value={user.username} className="form-control"></input>
+                    <input onChange={handleChange}
+                        name="username"
+                        value={username}
+                        className="form-control"></input>
                 </div>
-                <button onClick={handleClick} type="submit" className="btn btn-primary">Submit</button>
+                <button onClick={handleClick}
+                    type="submit"
+                    className="btn btn-primary">Submit</button>
             </form>
         </div>
     )
