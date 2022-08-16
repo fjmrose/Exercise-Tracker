@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+const allUsers = require
 
 const Add = () => {
 
@@ -8,16 +9,23 @@ const Add = () => {
         description: '',
         duration: ''
     })
+    const [ allUsers, setAllUsers ] = useState([])
 
-    const handleChange = event => {
-        const { name, value } = event.target
-        console.log(`user is typing ${value} in ${name} field`)
-        const newInput = {
-            ...input,
-            [name]: value
-        }
-        setInput(newInput)
-    }
+    useEffect(() => {
+        axios.get("http://localhost:3001/users/")
+            .then(response => {
+                setAllUsers(response.data)
+                console.log('allUsers = ', response.data)
+            })
+            .catch(() => {
+                console.log('Error retrieving data')
+            })
+    }, [])
+
+    const durs = ["5", "10", "15", "20", "25", "30",
+        "35", "40", "45", "50", "55", "60"]
+
+    const exs = ["Run", "Gym", "Swim", "Yoga", "Boxing", "Pilates"]
 
     const handleClick = event => {
         event.preventDefault()
@@ -36,23 +44,64 @@ const Add = () => {
         })
     }
 
-    return(
+    const handleUsernameChange = event => {
+        const selectedUser = event.target.value
+        setInput({
+            ...input,
+            username: selectedUser
+        })
+        console.log(input)
+    }
+
+    const handleExChange = event => {
+        const selectedEx = event.target.value
+        setInput({
+            ...input,
+            description: selectedEx
+        })
+        console.log(input)
+    }
+
+    const handleDurationChange = event => {
+        const selectedDur = event.target.value
+        setInput({
+            ...input,
+            duration: selectedDur
+        })
+        console.log(input)
+    }
+
+    return (
         <div>
             <h1>Add</h1>
             <form>
-                <div className="form-group">
-                    <h5>Username:</h5>
-                    <input onChange={handleChange} name="username" value={input.username} className="form-control"></input>
-                </div>
-                <div className="form-group">
-                    <h5>Exercise:</h5>
-                    <input onChange={handleChange} name="description" value={input.description} className="form-control"></input>
-                </div>
-                <div className="form-group">
-                    <h5>Duration:</h5>
-                    <input onChange={handleChange} name="duration" value={input.duration} className="form-control"></input>
-                </div>
-                <button onClick={handleClick} type="submit" className="btn btn-primary">Submit</button>
+                <h5>Select username: </h5>
+                <select className="form-select" 
+                        aria-label="Default select example"
+                        onChange={handleUsernameChange}>
+                    {allUsers.map((user, i) =>
+                        <option key={i}>{user.username}</option>
+                    )}
+                </select>
+                <h5>Select exercise type: </h5>
+                <select className="form-select" 
+                        aria-label="Default select example"
+                        onChange={handleExChange}>
+                    {exs.map((ex, i) =>
+                        <option key={i}>{ex}</option>
+                    )}
+                </select>
+                <h5>Select duration: </h5>
+                <select className="form-select" 
+                        aria-label="Default select example"
+                        onChange={handleDurationChange}>
+                    {durs.map((dur, i) =>
+                        <option key={i}>{dur}</option>
+                    )}
+                </select>
+                <button onClick={handleClick}
+                    type="submit"
+                    className="btn btn-primary">Submit</button>
             </form>
         </div>
     )

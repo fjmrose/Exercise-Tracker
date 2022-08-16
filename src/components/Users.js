@@ -100,7 +100,7 @@ const UserForm = ({ handleChange, registerUser, username }) => {
                 </div>
                 <button onClick={registerUser}
                     type="submit"
-                    className="btn btn-primary">Submit</button>
+                    className="btn btn-primary">Register</button>
             </form>
         </div>
     )
