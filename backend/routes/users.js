@@ -33,7 +33,7 @@ router.route('/update/:id').put((req, res) => {
 router.route('/:id').delete((req, res) => {
   User.findByIdAndDelete(req.params.id)
     .then(() => res.json('User deleted.'))
-    .catch(err => res.status(400).json('Error: ', err))
+    .catch(err => res.status(400).json("Error: ", err))
 })
 
 module.exports = router

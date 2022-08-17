@@ -11,6 +11,8 @@ const Add = () => {
     })
     const [ allUsers, setAllUsers ] = useState([])
 
+    console.log('input = ', input)
+
     useEffect(() => {
         axios.get("http://localhost:3001/users/")
             .then(response => {
@@ -25,7 +27,7 @@ const Add = () => {
     const durs = ["5", "10", "15", "20", "25", "30",
         "35", "40", "45", "50", "55", "60"]
 
-    const exs = ["Run", "Gym", "Swim", "Yoga", "Boxing", "Pilates"]
+    const exs = ["Run", "Gym", "Swim", "Yoga"]
 
     const handleClick = event => {
         event.preventDefault()
@@ -50,7 +52,6 @@ const Add = () => {
             ...input,
             username: selectedUser
         })
-        console.log(input)
     }
 
     const handleExChange = event => {
@@ -59,7 +60,6 @@ const Add = () => {
             ...input,
             description: selectedEx
         })
-        console.log(input)
     }
 
     const handleDurationChange = event => {
@@ -68,17 +68,17 @@ const Add = () => {
             ...input,
             duration: selectedDur
         })
-        console.log(input)
     }
 
     return (
         <div>
-            <h1>Add</h1>
+            <h1>Add Exercise</h1>
             <form>
                 <h5>Select username: </h5>
                 <select className="form-select" 
                         aria-label="Default select example"
                         onChange={handleUsernameChange}>
+                        <option selected>Open this select menu</option>
                     {allUsers.map((user, i) =>
                         <option key={i}>{user.username}</option>
                     )}
@@ -87,6 +87,7 @@ const Add = () => {
                 <select className="form-select" 
                         aria-label="Default select example"
                         onChange={handleExChange}>
+                        <option selected>Open this select menu</option>
                     {exs.map((ex, i) =>
                         <option key={i}>{ex}</option>
                     )}
@@ -95,6 +96,7 @@ const Add = () => {
                 <select className="form-select" 
                         aria-label="Default select example"
                         onChange={handleDurationChange}>
+                        <option selected>Open this select menu</option>
                     {durs.map((dur, i) =>
                         <option key={i}>{dur}</option>
                     )}

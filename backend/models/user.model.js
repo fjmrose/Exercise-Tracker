@@ -9,6 +9,12 @@ const userSchema = new Schema({
         unique: true,
         trim: true,
         minlength: 3
+    },
+    log: {
+        run: { type: Number, default: 0 }, 
+        gym: { type: Number, default: 0 }, 
+        swim: { type: Number, default: 0 }, 
+        yoga: { type: Number, default: 0 } 
     }
 })
 

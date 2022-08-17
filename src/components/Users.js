@@ -68,13 +68,13 @@ const Users = () => {
         <div>
             <div>
                 <h1>Users</h1>
-                <ul>
+                <ul className="list-group">
                     {allUsers.map((user, i) => {
                         return (
                             <div key={i}>
-                                <li>{user.username}</li>
+                                <li className="list-group-item">{user.username}
                                 <button onClick={(e) => deleteUser(user)}>Delete</button>
-                                <button onClick={(e) => updateUser(user)}>Update</button>
+                                <button onClick={(e) => updateUser(user)}>Update</button></li>
                             </div>
                         )
                     })}
