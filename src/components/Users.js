@@ -3,8 +3,8 @@ import axios from 'axios'
 
 const Users = () => {
 
-    const [ allUsers, setAllUsers ] = useState([])
-    const [ user, setUser ] = useState({
+    const [allUsers, setAllUsers] = useState([])
+    const [user, setUser] = useState({
         username: ''
     })
 
@@ -67,14 +67,18 @@ const Users = () => {
     return (
         <div>
             <div>
-                <h1>Users</h1>
+                <h1 className="m-3">Users</h1>
                 <ul className="list-group">
                     {allUsers.map((user, i) => {
                         return (
                             <div key={i}>
-                                <li className="list-group-item">{user.username}
-                                <button onClick={(e) => deleteUser(user)}>Delete</button>
-                                <button onClick={(e) => updateUser(user)}>Update</button></li>
+                                <li className="list-group-item m-1">
+                                    {user.username}
+                                    <button className="btn btn-secondary m-3" 
+                                            onClick={(e) => updateUser(user)}>Update</button>
+                                    <button className="btn btn-danger m-3" 
+                                            onClick={(e) => deleteUser(user)}>Delete</button>
+                                </li>
                             </div>
                         )
                     })}
@@ -89,7 +93,7 @@ const Users = () => {
 
 const UserForm = ({ handleChange, registerUser, username }) => {
     return (
-        <div>
+        <div className='m-3'>
             <form>
                 <div className="form-group">
                     <h5>Username:</h5>
@@ -100,7 +104,7 @@ const UserForm = ({ handleChange, registerUser, username }) => {
                 </div>
                 <button onClick={registerUser}
                     type="submit"
-                    className="btn btn-primary">Register</button>
+                    className="btn btn-primary m-3">Register</button>
             </form>
         </div>
     )

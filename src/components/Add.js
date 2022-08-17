@@ -72,9 +72,9 @@ const Add = () => {
 
     return (
         <div>
-            <h1>Add Exercise</h1>
+            <h1 className="m-3">Add Exercise</h1>
             <form>
-                <h5>Select username: </h5>
+                <h5 className="m-3">Select username: </h5>
                 <select className="form-select" 
                         aria-label="Default select example"
                         onChange={handleUsernameChange}>
@@ -83,7 +83,7 @@ const Add = () => {
                         <option key={i}>{user.username}</option>
                     )}
                 </select>
-                <h5>Select exercise type: </h5>
+                <h5 className="m-3">Select exercise type: </h5>
                 <select className="form-select" 
                         aria-label="Default select example"
                         onChange={handleExChange}>
@@ -92,7 +92,7 @@ const Add = () => {
                         <option key={i}>{ex}</option>
                     )}
                 </select>
-                <h5>Select duration: </h5>
+                <h5 className="m-3">Select duration: </h5>
                 <select className="form-select" 
                         aria-label="Default select example"
                         onChange={handleDurationChange}>
@@ -103,7 +103,7 @@ const Add = () => {
                 </select>
                 <button onClick={handleClick}
                     type="submit"
-                    className="btn btn-primary">Submit</button>
+                    className="btn btn-primary m-3">Submit</button>
             </form>
         </div>
     )
